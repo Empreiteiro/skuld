@@ -1,0 +1,138 @@
+.app {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    display: flex;
+}
+
+.sidebar {
+    width: 260px;
+    background-color: #ffffff;
+    border-right: 1px solid #e1e4e8;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.sidebar-header {
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #e1e4e8;
+}
+
+.sidebar-header svg {
+    color: #1a73e8;
+}
+
+.sidebar-header h1 {
+    font-size: 20px;
+    font-weight: 500;
+    color: #202124;
+    margin: 0;
+}
+
+.sidebar-nav {
+    padding: 8px 0;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 24px;
+    color: #3c4043;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.nav-item:hover {
+    background-color: #f1f3f4;
+}
+
+.nav-item.active {
+    background-color: #e8f0fe;
+    color: #1a73e8;
+}
+
+.nav-item svg {
+    flex-shrink: 0;
+}
+
+.main-content {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+    
+    .sidebar-header h1 {
+        font-size: 18px;
+    }
+    
+    .nav-item {
+        padding: 8px 16px;
+    }
+}
+
+/* Utility classes */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.App-header {
+    background-color: #282c34;
+    padding: 1.5rem 0;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.App-header h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.App-main {
+    flex: 1;
+    padding: 2rem 0;
+    width: 100%;
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .nav {
+        padding: 1rem;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .nav-link {
+        text-align: center;
+    }
+
+    .App-main {
+        padding: 1rem;
+    }
+} 

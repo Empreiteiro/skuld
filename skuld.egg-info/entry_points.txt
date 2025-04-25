@@ -1,0 +1,2 @@
+[console_scripts]
+skuld = skuld.cli:cli

@@ -1,0 +1,111 @@
+Metadata-Version: 2.1
+Name: skuld
+Version: 0.1.0
+Summary: A web-based cron job scheduler with UI
+Home-page: https://github.com/yourusername/skuld
+Author: Lucas
+Author-email: your.email@example.com
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: flask>=2.0.0
+Requires-Dist: flask-cors>=3.0.0
+Requires-Dist: requests>=2.25.0
+Requires-Dist: click>=8.0.0
+Requires-Dist: apscheduler>=3.9.0
+Requires-Dist: python-dateutil>=2.8.0
+
+# Skuld
+
+Skuld is an HTTP scheduling manager that allows you to schedule and monitor HTTP calls using cron expressions.
+
+## Requirements
+
+- Python 3.8 or higher
+- Node.js 14 or higher
+- npm (usually comes with Node.js)
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/your-username/skuld.git
+cd skuld
+```
+
+2. Install the Python package:
+```bash
+pip install -e .
+```
+
+## Usage
+
+### Method 1: Start with one command (Recommended)
+
+Run the startup script that will start both backend and frontend:
+
+```bash
+python start.py
+```
+
+### Method 2: Start services separately
+
+If you prefer, you can start the services separately in different terminals:
+
+Terminal 1 (Backend):
+```bash
+skuld run
+```
+
+Terminal 2 (Frontend):
+```bash
+cd skuld/frontend
+npm install
+npm start
+```
+
+## Accessing the Application
+
+After starting the services, access:
+
+- Frontend: http://localhost:3000
+- API Backend: http://localhost:5000
+
+## Features
+
+- Create HTTP schedules using cron expressions
+- Monitor executions through logs
+- Support for different HTTP methods (GET, POST, PUT, DELETE)
+- User-friendly interface for schedule management
+- Real-time execution log updates
+
+## Cron Expressions
+
+The system supports standard cron expressions. Some examples:
+
+- `* * * * *` - Every minute
+- `*/5 * * * *` - Every 5 minutes
+- `0 * * * *` - At the beginning of every hour
+- `0 0 * * *` - Every day at midnight
+- `0 0 * * 0` - Every Sunday at midnight
+- `0 0 1 * *` - First day of every month at midnight
+
+## Development
+
+To contribute to the project:
+
+1. Fork the repository
+2. Create a branch for your feature (`git checkout -b feature/new-feature`)
+3. Commit your changes (`git commit -am 'Add new feature'`)
+4. Push to the branch (`git push origin feature/new-feature`)
+5. Create a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. 
