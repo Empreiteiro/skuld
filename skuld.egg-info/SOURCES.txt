@@ -2,6 +2,7 @@ MANIFEST.in
 README.md
 setup.py
 skuld/__init__.py
+skuld/__main__.py
 skuld/cli.py
 skuld/run.py
 skuld/schedules.db
