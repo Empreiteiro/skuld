@@ -30,7 +30,7 @@ const Schedules = () => {
 
     const loadSchedules = async () => {
         try {
-            const response = await fetch('http://localhost:3001/api/schedules');
+            const response = await fetch('http://localhost:5000/api/schedules');
             if (!response.ok) {
                 throw new Error('Error loading schedules');
             }
@@ -46,7 +46,7 @@ const Schedules = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3001/api/schedules', {
+            const response = await fetch('http://localhost:5000/api/schedules', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -72,12 +72,12 @@ const Schedules = () => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await fetch(`http://localhost:3001/api/schedules/${id}`, {
+            const response = await fetch(`http://localhost:5000/api/schedules/${id}`, {
                 method: 'DELETE',
             });
 
             if (!response.ok) {
-                throw new Error('Erro ao excluir agendamento');
+                throw new Error('Error deleting schedule');
             }
 
             await loadSchedules();
@@ -103,11 +103,11 @@ const Schedules = () => {
     };
 
     if (loading) {
-        return <div className="schedules-container">Carregando...</div>;
+        return <div className="schedules-container">Loading...</div>;
     }
 
     if (error) {
-        return <div className="schedules-container">Erro: {error}</div>;
+        return <div className="schedules-container">Error: {error}</div>;
     }
 
     return (
@@ -143,7 +143,7 @@ const Schedules = () => {
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="cronExpression">Cron Expression:</label>
+                    <label htmlFor="cronExpression">Custom Cron Expression:</label>
                     <input
                         type="text"
                         id="cronExpression"
@@ -165,7 +165,7 @@ const Schedules = () => {
                         value={formData.url}
                         onChange={handleInputChange}
                         required
-                        placeholder="https://api.exemplo.com"
+                        placeholder="https://api.example.com"
                     />
                 </div>
 
