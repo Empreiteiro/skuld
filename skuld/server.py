@@ -13,6 +13,7 @@ import threading
 import time
 from queue import Queue
 import functools
+import json
 
 # Configurar logging
 logging.basicConfig(level=logging.INFO)
@@ -112,6 +113,8 @@ def init_db():
                         cronExpression TEXT NOT NULL,
                         url TEXT NOT NULL,
                         method TEXT NOT NULL,
+                        headers TEXT,
+                        body TEXT,
                         active BOOLEAN NOT NULL DEFAULT 1,
                         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
                     );
@@ -137,18 +140,28 @@ def init_db():
                 ''')
                 logger.info("Database tables created successfully")
                 
-                # Verificar se a coluna active existe
+                # Verificar se as colunas existem
                 cursor = conn.cursor()
                 cursor.execute("PRAGMA table_info(schedules)")
                 columns = cursor.fetchall()
-                has_active = any(col[1] == 'active' for col in columns)
+                column_names = [col[1] for col in columns]
                 
-                if not has_active:
+                # Adicionar coluna active se não existir
+                if 'active' not in column_names:
                     logger.info("Adding active column to schedules table...")
                     conn.execute('ALTER TABLE schedules ADD COLUMN active BOOLEAN NOT NULL DEFAULT 1')
                     logger.info("Active column added successfully")
-                else:
-                    logger.info("Database tables already exist with correct schema")
+                
+                # Adicionar colunas headers e body se não existirem
+                if 'headers' not in column_names:
+                    logger.info("Adding headers column to schedules table...")
+                    conn.execute('ALTER TABLE schedules ADD COLUMN headers TEXT')
+                    logger.info("Headers column added successfully")
+                
+                if 'body' not in column_names:
+                    logger.info("Adding body column to schedules table...")
+                    conn.execute('ALTER TABLE schedules ADD COLUMN body TEXT')
+                    logger.info("Body column added successfully")
                 
                 # Verificar se o banco está acessível
                 cursor.execute("SELECT COUNT(*) FROM schedules")
@@ -176,9 +189,30 @@ def execute_request(schedule):
 
         logger.info(f"Executing request for schedule: {schedule['name']}")
         try:
+            # Preparar headers
+            headers = {}
+            if schedule.get('headers'):
+                try:
+                    headers = json.loads(schedule['headers'])
+                except json.JSONDecodeError:
+                    logger.error(f"Invalid headers JSON for schedule {schedule['name']}")
+                    headers = {}
+
+            # Preparar body
+            body = None
+            if schedule.get('body'):
+                try:
+                    body = json.loads(schedule['body'])
+                except json.JSONDecodeError:
+                    logger.error(f"Invalid body JSON for schedule {schedule['name']}")
+                    body = schedule['body']
+
             response = requests.request(
                 method=schedule['method'],
                 url=schedule['url'],
+                headers=headers,
+                json=body if isinstance(body, dict) else None,
+                data=body if not isinstance(body, dict) else None,
                 timeout=30  # Adiciona um timeout de 30 segundos
             )
             response.raise_for_status()  # Levanta exceção para status codes >= 400
@@ -291,7 +325,6 @@ def export_db_data():
             executions = [dict(row) for row in cursor.fetchall()]
             
             # Salvar em arquivo JSON
-            import json
             backup_data = {
                 'schedules': schedules,
                 'executions': executions
@@ -315,7 +348,6 @@ def import_db_data():
             return False
         
         # Carregar dados do backup
-        import json
         with open(backup_file, 'r') as f:
             backup_data = json.load(f)
         
@@ -458,9 +490,17 @@ def create_app():
                 # Update schedule
                 conn.execute('''
                     UPDATE schedules
-                    SET name = ?, cronExpression = ?, url = ?, method = ?
+                    SET name = ?, cronExpression = ?, url = ?, method = ?, headers = ?, body = ?
                     WHERE id = ?
-                ''', (data['name'], data['cronExpression'], data['url'], data['method'], id))
+                ''', (
+                    data['name'],
+                    data['cronExpression'],
+                    data['url'],
+                    data['method'],
+                    data.get('headers', ''),
+                    data.get('body', ''),
+                    id
+                ))
                 
                 # Update job in scheduler only if schedule is active
                 if current['active']:
@@ -477,6 +517,8 @@ def create_app():
                         'cronExpression': data['cronExpression'],
                         'url': data['url'],
                         'method': data['method'],
+                        'headers': data.get('headers', ''),
+                        'body': data.get('body', ''),
                         'active': current['active']
                     }
                     
