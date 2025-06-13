@@ -1,3 +1,4 @@
+// Buffer Platform Script
 const API_URL = 'http://localhost:3000';
 
 // Schedule type mapping to cron expressions

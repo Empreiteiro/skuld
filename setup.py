@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="skuld",
-    version="0.1.0",
+    name="buffer",
+    version="1.0.0",
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
@@ -16,23 +16,24 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "skuld=skuld.cli:cli"
+            "buffer=buffer.cli:cli"
         ]
     },
     package_data={
-        "skuld": [
+        "buffer": [
             "frontend/build/**/*",
             "frontend/build/**/.*",
-            "*.db"
+            "*.db",
+            "frontend/public/**/*"
         ]
     },
     python_requires=">=3.8",
     author="Lucas",
     author_email="your.email@example.com",
-    description="A web-based cron job scheduler with UI",
+    description="A message buffer platform with web interface",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/skuld",
+    url="https://github.com/yourusername/buffer",
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
@@ -41,5 +42,6 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Operating System :: OS Independent",
     ],
 ) 

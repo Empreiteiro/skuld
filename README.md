@@ -1,131 +1,95 @@
-# Skuld
+# Buffer
 
-Skuld is a powerful web-based cron job scheduler with a user-friendly interface that allows you to schedule and monitor HTTP calls using cron expressions.
+Buffer is a powerful message buffer platform that allows you to receive, store, and forward messages based on configurable rules. It provides a user-friendly interface for managing message buffers and forwarding configurations.
 
 ## Features
 
-- Schedule HTTP requests using cron expressions
-- Monitor executions through detailed logs
-- Support for multiple HTTP methods (GET, POST, PUT, DELETE)
-- User-friendly interface for schedule management
-- Real-time execution log updates
-- Easy to install and configure
-
-## Requirements
-
-- Python 3.8 or higher
-- Node.js 14 or higher
-- npm (usually comes with Node.js)
+- Webhook endpoint for receiving messages
+- Configurable message buffering based on message characteristics
+- Multiple forwarding destinations with custom headers and methods
+- Message history tracking
+- Real-time status monitoring
+- Modern and responsive web interface
 
 ## Installation
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/Empreiteiro/skuld.git
-cd skuld
+git clone https://github.com/yourusername/buffer.git
+cd buffer
 ```
 
-2. Install the Python package:
+2. Create and activate a virtual environment:
+```bash
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+```
+
+3. Install the package:
 ```bash
 pip install -e .
 ```
 
 ## Usage
 
-### Quick Start (Recommended)
-
-Run the startup script that will start both backend and frontend:
-
+1. Start the backend server:
 ```bash
-python start.py
+buffer run
 ```
 
-### Manual Start (Alternative)
-
-If you prefer to start services separately:
-
-Terminal 1 (Backend):
+2. Start the frontend development server:
 ```bash
-skuld run
-```
-
-Terminal 2 (Frontend):
-```bash
-cd skuld/frontend
+cd buffer/frontend
 npm install
 npm start
 ```
 
-## Accessing the Application
+3. Access the web interface at `http://localhost:3000`
 
-After starting the services, you can access:
+## Webhook Usage
 
-- Frontend Interface: [http://localhost:3000](http://localhost:3000)
-- API Backend: [http://localhost:5000](http://localhost:5000)
+Send messages to the webhook endpoint:
 
-## Cron Expression Guide
+```bash
+curl -X POST http://localhost:5000/api/webhook \
+  -H "Content-Type: application/json" \
+  -d '{"message": "Hello, World!", "phone_number": "+5511999999999"}'
+```
 
-Skuld uses standard cron expressions. Here are some common patterns:
+## Configuration
 
-| Expression    | Description                                |
-|---------------|--------------------------------------------|
-| `* * * * *`   | Every minute                               |
-| `*/5 * * * *` | Every 5 minutes                            |
-| `0 * * * *`   | At the beginning of every hour            |
-| `0 0 * * *`   | Every day at midnight                      |
-| `0 0 * * 0`   | Every Sunday at midnight                   |
-| `0 0 1 * *`   | First day of every month at midnight       |
+### Buffer Configuration
 
-## API Dependencies
+Configure message buffering based on message characteristics:
 
-- Flask >= 2.0.0
-- Flask-CORS >= 3.0.0
-- Requests >= 2.25.0
-- Click >= 8.0.0
-- APScheduler >= 3.9.0
-- Python-dateutil >= 2.8.0
-- Croniter
+- Filter Field: The field in the message to match (e.g., "phone_number")
+- Filter Value: The value to match against
+- Max Size: Maximum number of messages to buffer
+
+### Forwarding Configuration
+
+Configure message forwarding:
+
+- URL: Destination endpoint
+- Method: HTTP method (POST, PUT, PATCH)
+- Headers: Custom headers for the request
 
 ## Development
 
-To contribute to the project:
+### Backend
 
-1. Fork the repository
-2. Create a feature branch:
-```bash
-git checkout -b feature/your-feature-name
-```
-3. Commit your changes:
-```bash
-git commit -am "Add new feature"
-```
-4. Push to the branch:
-```bash
-git push origin feature/your-feature-name
-```
-5. Create a Pull Request
+The backend is built with:
+- Flask
+- SQLite
+- APScheduler
 
-## Troubleshooting
+### Frontend
 
-### Common Issues
-
-1. **Port Already in Use**
-   - Change the port using the `--port` option:
-   ```bash
-   skuld run --port 5001
-   ```
-
-2. **Node Modules Not Found**
-   - Run `npm install` in the frontend directory:
-   ```bash
-   cd skuld/frontend
-   npm install
-   ```
+The frontend is built with:
+- React
+- React Router
+- Modern CSS
 
 ## License
 
-This project is licensed under the MIT License.
-
-## Author
-
-Created and maintained by [Empreiteiro](https://github.com/Empreiteiro)
+This project is licensed under the MIT License - see the LICENSE file for details.
