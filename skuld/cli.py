@@ -9,7 +9,7 @@ def cli():
     pass
 
 @cli.command()
-@click.option('--port', default=5000, help='Port to run the server on')
+@click.option('--port', default=8000, help='Port to run the server on')
 @click.option('--host', default='localhost', help='Host to run the server on')
 def run(port, host):
     """Run the Skuld server"""

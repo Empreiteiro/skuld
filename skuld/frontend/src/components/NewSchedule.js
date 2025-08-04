@@ -32,7 +32,7 @@ function NewSchedule() {
         setFeedback({ type: '', message: '' });
 
         try {
-            const response = await fetch('http://localhost:5000/api/schedules', {
+            const response = await fetch('/api/schedules', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

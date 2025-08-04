@@ -581,13 +581,13 @@ def create_app():
                     cursor = conn.execute('SELECT * FROM executions ORDER BY executedAt DESC')
                     executions = [dict(row) for row in cursor.fetchall()]
                     logger.info(f"Retrieved {len(executions)} executions successfully")
-                    return jsonify(executions)
+                    return jsonify(executions if executions else [])
                 except sqlite3.Error as e:
                     logger.error(f"Database error while fetching executions: {str(e)}")
-                    return jsonify({'error': f'Database error occurred: {str(e)}'}), 500
+                    return jsonify([]), 500
         except Exception as e:
             logger.error(f"Unexpected error in get_executions: {str(e)}", exc_info=True)
-            return jsonify({'error': f'Internal server error: {str(e)}'}), 500
+            return jsonify([]), 500
 
     @app.route('/api/schedules/<int:id>/toggle', methods=['POST'])
     def toggle_schedule(id):

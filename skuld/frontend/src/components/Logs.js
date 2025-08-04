@@ -34,8 +34,15 @@ function Logs() {
     const fetchLogs = async () => {
         try {
             setLoading(true);
-            const response = await fetch('http://localhost:5000/api/executions');
+            const response = await fetch('/api/executions');
             const data = await response.json();
+            
+            // Verificar se data é um array
+            if (!Array.isArray(data)) {
+                console.error('Expected array but got:', data);
+                setError('Invalid data format received from server');
+                return;
+            }
             
             // Ordenar por scheduleId e data de execução (mais recente primeiro)
             const sortedLogs = data.sort((a, b) => {
