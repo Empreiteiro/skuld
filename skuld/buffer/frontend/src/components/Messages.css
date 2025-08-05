@@ -1,0 +1,252 @@
+.messages {
+  padding: 20px;
+}
+
+.header {
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.tab {
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+  border-radius: 4px 4px 0 0;
+  transition: all 0.3s ease;
+}
+
+.tab:hover {
+  background-color: #f5f5f5;
+}
+
+.tab.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  font-size: 16px;
+}
+
+.messages-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.message-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.message-header h3 {
+  margin: 0;
+  color: #333;
+}
+
+.status {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.status.processed {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status.pending {
+  background-color: #fffde7;
+  color: #f9a825;
+}
+
+.status.success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status.error {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.status.cancelled {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.message-details p {
+  margin: 8px 0;
+  color: #666;
+}
+
+.message-details strong {
+  color: #333;
+}
+
+.message-content {
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  margin: 0;
+  word-break: break-all;
+  color: #222;
+}
+
+.messages-table-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 0 0 8px 0;
+  margin: 24px auto;
+  max-width: 1200px;
+}
+
+.messages-table.modern {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: transparent;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.messages-table.modern thead tr:first-child th:first-child {
+  border-top-left-radius: 14px;
+}
+.messages-table.modern thead tr:first-child th:last-child {
+  border-top-right-radius: 14px;
+}
+.messages-table.modern tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 14px;
+}
+.messages-table.modern tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 14px;
+}
+
+.messages-table.modern th {
+  font-weight: 600;
+  padding: 16px 12px;
+  text-align: left;
+  border: none;
+  font-size: 15px;
+  color: #222;
+}
+
+.messages-table.modern tbody tr.messages-row {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+  margin-bottom: 8px;
+  transition: box-shadow 0.2s;
+  height: 56px;
+  color: #222;
+}
+
+.messages-table.modern td {
+  padding: 14px 12px;
+  border: none;
+  font-size: 15px;
+  vertical-align: middle;
+  color: #222;
+}
+
+.messages-table.modern tbody tr.messages-row:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 4px 8px;
+  color: #444;
+  transition: color 0.2s;
+}
+.icon-btn:hover {
+  color: #1976d2;
+}
+
+.messages-filter-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  padding: 18px 24px 8px 24px;
+  margin: 0 auto 18px auto;
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+}
+
+.messages-filter-form {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 12px;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 90px;
+  max-width: 160px;
+  flex: 1 1 0;
+}
+
+.filter-group label {
+  font-size: 13px;
+  color: #444;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.filter-group input,
+.filter-group select {
+  padding: 4px 7px;
+  border-radius: 7px;
+  border: 1px solid #e0e0e0;
+  font-size: 13px;
+  background: #fafbfc;
+  color: #222;
+  outline: none;
+  transition: border 0.2s;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+.filter-group input:focus,
+.filter-group select:focus {
+  border: 1.5px solid #1976d2;
+} 

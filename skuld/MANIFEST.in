@@ -1,0 +1,4 @@
+recursive-include buffer/frontend/build *
+recursive-include buffer/frontend/public *
+include README.md
+include LICENSE 
